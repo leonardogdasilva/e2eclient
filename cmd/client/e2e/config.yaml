@@ -1,0 +1,34 @@
+
+components:
+- name: auth-api
+  src: src/auth-api
+- name: certificates-api
+  src: src/certificates-api
+- name: echo-server
+  src: src/echo-server
+- name: jwt-builder
+  src: src/jwt-builder
+- name: mysql
+  src: src/mysql
+- name: recaptcha-client
+  src: src/setup
+- name: token-helper
+  src: src/token-helper
+- name: zuul
+  src: src/zuul
+- name: aws-cli
+  src: src/aws-cli
+- name: dynamodb
+  src: src/dynamodb
+- name: kong
+  src: src/kong
+- name: mockserver
+  src: src/mockserver
+- name: passport-api
+  src: src/passport-api
+- name: redis
+  src: src/redis
+- name: token-generator-service
+  src: src/token-generator-service
+- name: tools
+  src: src/tools

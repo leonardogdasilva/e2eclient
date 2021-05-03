@@ -1,0 +1,3 @@
+apiVersion: pismo.io/e2ecli/v1alpha1
+kind: Scenario
+name: 1234

@@ -1,0 +1,87 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"id": "https://pismo.io/e2ecli",
+	"type": "object",
+	"required": [
+	  "apiVersion",
+	  "kind"
+	],
+	"properties": {
+	  "apiVersion": {
+		"type": "string",
+		"enum": [
+		  "pismo.io/e2ecli/v1alpha1"
+		],
+		"default": "pismo.io/e2ecli/v1alpha1"
+	  },
+	  "kind": {
+		"type": "string",
+		"enum": [
+		  "Scenario"
+		],
+		"default": "Scenario"
+	  },
+	  "name": {
+		"description": "Name of the scenario",
+			  "type": "string"
+	  },
+	  "spec": {
+		  "type": "object",
+		  "properties": {
+			"components": {
+				"type": "array",
+				"items": {
+					"$ref": "#/definitions/componentDef"
+				}
+			}
+		  }
+	  }
+	},
+	  "definitions": {
+		"paramsDef": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/paramDef"
+			}
+		},
+		"componentDef": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"tasks": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/taskDef"
+					}
+				}
+			}
+		},
+		"taskDef": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"script": {
+					"type": "string"
+				},
+				"params": {
+					"$ref": "#/definitions/paramsDef"
+				}
+			}
+		},
+		"paramDef": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"value": {
+					"type": "string"
+				}
+			}
+		}
+	}	
+}

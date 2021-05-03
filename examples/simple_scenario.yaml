@@ -1,0 +1,28 @@
+apiVersion: pismo.io/e2ecli/v1alpha1
+kind: Scenario
+name: foo
+spec:
+  components:
+  - name: zuul
+    tasks:
+      - name: prepare
+        script: simple.e2e
+        params:
+        - name: "p1"
+          value: "v1"
+        - name: "p2"
+          value: "v2"
+      - name: prepare2
+        script: simple.e2e
+        params:
+          - name: "p1"
+            value: "v1"
+          - name: "p2"
+            value: "v2"
+      - name: prepare3
+        script: simple.e2e
+        params:
+          - name: "p1"
+            value: "v1"
+          - name: "p2"
+            value: "v2"
