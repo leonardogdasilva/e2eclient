@@ -6,6 +6,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/leonardogdasilva/util"
+	"github.com/pkg/errors"
 	"gopkg.in/yaml.v2"
 )
 
@@ -16,11 +18,15 @@ import (
 
 // components:
 // - name: auth-api
-//   src: src/auth-api
+//   workdir: src/auth-api
+//   componentdir: auth-api
 
 var (
 	// Directory path created at e2ecli runtime
 	CliDir = filepath.Join(os.Getenv("HOME"), ".e2ecli")
+
+	// Directory to store e2e repo content
+	CliConfigTargetDir = filepath.Join(CliDir, "e2e-test")
 
 	// Default config file
 	DefaultConfig = "config.yaml"
@@ -29,8 +35,10 @@ var (
 )
 
 type Component struct {
-	Name string `yaml:"name"`
-	Src  string `yaml:"src"`
+	Name         string `yaml:"name"`
+	WorkDir      string `yaml:"workdir"`
+	ComponentDir string `yaml:"componentdir"`
+	Git          string `yaml:"git"`
 }
 
 type Config struct {
@@ -65,6 +73,17 @@ func LoadConfig(configPath string) (*Config, error) {
 	parseConfig(file)
 
 	return ClientConfig, nil
+}
+
+// UpdateConfigDir downloads git repository containing e2e metadata and supporting files
+func UpdateConfigDir() error {
+	if err := util.GitClone(ClientConfig.Repository.Git, CliConfigTargetDir); err != nil {
+		return errors.Wrapf(err, "error downloading e2e config dir in '%s'", CliConfigTargetDir)
+	}
+	if err := util.GitCheckout(ClientConfig.Repository.Git, CliConfigTargetDir, ClientConfig.Repository.Branch); err != nil {
+		return errors.Wrapf(err, "error updating e2e config dir in '%s'", CliConfigTargetDir)
+	}
+	return nil
 }
 
 func ValidateConfig(path string) error {

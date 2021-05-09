@@ -2,14 +2,15 @@ package client
 
 import (
 	"encoding/json"
-	"github.com/leonardogdasilva/pkg/config"
-	"github.com/leonardogdasilva/pkg/config/v1alpha1"
-	"github.com/pismo/e2eclient/util"
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	yaml2 "sigs.k8s.io/yaml"
 	"strings"
+
+	"github.com/leonardogdasilva/pkg/config"
+	"github.com/leonardogdasilva/pkg/config/v1alpha1"
+	"github.com/pismo/e2eclient/util"
+	yaml2 "sigs.k8s.io/yaml"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"

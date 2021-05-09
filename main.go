@@ -20,6 +20,7 @@ func init() {
 	} else {
 		logrus.Infof("Processing config from '%s:%s'", config.ClientConfig.Repository.Git,
 			config.ClientConfig.Repository.Branch)
+		config.UpdateConfigDir()
 	}
 }
 

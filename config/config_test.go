@@ -13,7 +13,9 @@ func TestLoadConfig(t *testing.T) {
     branch: canary-api
   components:
   - name: auth-api
-    src: src/auth-api
+    workdir: src/auth-api
+    componentdir: auth-api
+    git: git@github.com:pismo/auth-api
 `
 	r := strings.NewReader(yaml)
 	err := parseConfig(r)
@@ -27,8 +29,10 @@ func TestLoadConfig(t *testing.T) {
 		},
 		Components: []Component{
 			{
-				Name: "auth-api",
-				Src:  "src/auth-api",
+				Name:         "auth-api",
+				WorkDir:      "src/auth-api",
+				ComponentDir: "auth-api",
+				Git:          "git@github.com:pismo/pismo-zuul-gateway",
 			},
 		},
 	}
