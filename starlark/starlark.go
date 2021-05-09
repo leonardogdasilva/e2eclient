@@ -66,5 +66,6 @@ func newPredeclareds() starlark.StringDict {
 	return starlark.StringDict{
 		identifiers.os:       setupOSStruct(),
 		identifiers.runLocal: starlark.NewBuiltin(identifiers.runLocal, runLocalFunc),
+		identifiers.git:      starlark.NewBuiltin(identifiers.git, gitFunc),
 	}
 }

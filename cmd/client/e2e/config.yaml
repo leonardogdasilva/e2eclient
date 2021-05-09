@@ -1,3 +1,7 @@
+repository:
+  git: git@github.com:pismo/api-gateway-e2e-test
+  branch: canary-api
+
 
 components:
 - name: auth-api

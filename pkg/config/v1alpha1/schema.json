@@ -28,7 +28,19 @@
 	  "spec": {
 		  "type": "object",
 		  "properties": {
+			"setup": {
+				"type": "array",
+				"items": {
+					"$ref": "#/definitions/componentDef"
+				}
+			},
 			"components": {
+				"type": "array",
+				"items": {
+					"$ref": "#/definitions/componentDef"
+				}
+			},
+			"teardown": {
 				"type": "array",
 				"items": {
 					"$ref": "#/definitions/componentDef"

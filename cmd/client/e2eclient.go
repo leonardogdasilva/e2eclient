@@ -1,9 +1,8 @@
 package client
 
 import (
-	"os"
-
 	"github.com/pismo/e2eclient/buildinfo"
+	"github.com/pismo/e2eclient/config"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -52,12 +51,11 @@ func clientDiagnosticsCommand() *cobra.Command {
 
 	// cmd.AddCommand(newRunCommand())
 	cmd.AddCommand(newBuildinfoCommand())
-	cmd.AddCommand(InitConfig(CliDir))
+	cmd.AddCommand(InitConfig(config.CliDir))
 	cmd.AddCommand(RunScenario())
 	return cmd
 }
 
 func Run() error {
-	logrus.SetOutput(os.Stdout)
 	return clientDiagnosticsCommand().Execute()
 }

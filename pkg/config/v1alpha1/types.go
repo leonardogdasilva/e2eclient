@@ -89,6 +89,12 @@ const SchemaJsonKindScenario SchemaJsonKind = "Scenario"
 type SchemaJsonSpec struct {
 	// Components corresponds to the JSON schema field "components".
 	Components []ComponentDef `json:"components,omitempty"`
+
+	// Setup corresponds to the JSON schema field "setup".
+	Setup []ComponentDef `json:"setup,omitempty"`
+
+	// Teardown corresponds to the JSON schema field "teardown".
+	Teardown []ComponentDef `json:"teardown,omitempty"`
 }
 
 type TaskDef struct {

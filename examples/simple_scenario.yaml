@@ -6,21 +6,21 @@ spec:
   - name: zuul
     tasks:
       - name: prepare
-        script: simple.e2e
+        script: simple.star
         params:
         - name: "p1"
           value: "v1"
         - name: "p2"
           value: "v2"
       - name: prepare2
-        script: simple.e2e
+        script: simple.star
         params:
           - name: "p1"
             value: "v1"
           - name: "p2"
             value: "v2"
       - name: prepare3
-        script: simple.e2e
+        script: simple.star
         params:
           - name: "p1"
             value: "v1"

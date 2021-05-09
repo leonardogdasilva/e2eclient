@@ -34,9 +34,7 @@ func execute(name string, source io.Reader, args ArgMap) error {
 	return err
 }
 
-func ExecuteScenario(scn v1alpha1.SchemaJson, args ArgMap, basepath string) error {
-	logrus.Infof("Executing scenario <%s>", *scn.Name)
-	defs := &scn.Spec.Components
+func processTaskList(defs *[]v1alpha1.ComponentDef, args ArgMap, basepath string) error {
 	for _, comp := range *defs {
 		compName := *comp.Name
 		tasks := &comp.Tasks
@@ -54,6 +52,27 @@ func ExecuteScenario(scn v1alpha1.SchemaJson, args ArgMap, basepath string) erro
 	return nil
 }
 
+func ExecuteScenario(scn v1alpha1.SchemaJson, args ArgMap, basepath string) error {
+	logrus.Infof("Executing scenario <%s>", *scn.Name)
+
+	defs := &scn.Spec.Setup
+	if err := processTaskList(defs, args, basepath); err != nil {
+		return err
+	}
+
+	defs = &scn.Spec.Components
+	if err := processTaskList(defs, args, basepath); err != nil {
+		return err
+	}
+
+	defs = &scn.Spec.Teardown
+	if err := processTaskList(defs, args, basepath); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func processTaskParams(args *ArgMap, params v1alpha1.ParamsDef) {
 	m := map[string]string(*args)
 	for _, param := range params {
@@ -64,9 +83,9 @@ func processTaskParams(args *ArgMap, params v1alpha1.ParamsDef) {
 }
 
 func loadFile(basepath string, script string, args ArgMap) error {
-	file, err := os.Open(filepath.Join(basepath, filepath.Base(script)))
+	file, err := os.Open(filepath.Join(basepath, script))
 	if err != nil {
-		return errors.Wrapf(err, "failed to open script file: %s", file.Name())
+		return errors.Wrapf(err, "failed to open script file: %s", script)
 	}
 	defer file.Close()
 	return executeFile(file, args)

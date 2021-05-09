@@ -17,12 +17,14 @@ var (
 		cliCfg    string
 		scriptCtx string
 		runLocal  string
+		git       string
 	}{
 		os:        "os",
 		cliDir:    filepath.Join(os.Getenv("HOME"), ".e2ecli"),
 		cliCfg:    "cli_config",
 		scriptCtx: "script_context",
 		runLocal:  "run_local",
+		git:       "git",
 	}
 
 	defaults = struct {
