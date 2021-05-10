@@ -18,6 +18,7 @@ var (
 		scriptCtx string
 		runLocal  string
 		git       string
+		container string
 	}{
 		os:        "os",
 		cliDir:    filepath.Join(os.Getenv("HOME"), ".e2ecli"),
@@ -25,6 +26,7 @@ var (
 		scriptCtx: "script_context",
 		runLocal:  "run_local",
 		git:       "git",
+		container: "container",
 	}
 
 	defaults = struct {
@@ -37,7 +39,7 @@ var (
 func getWorkdirFromThread(thread *starlark.Thread) (string, error) {
 	val := thread.Local(identifiers.cliCfg)
 	if val == nil {
-		return "", fmt.Errorf("%s not found in threard", identifiers.cliCfg)
+		return "", fmt.Errorf("%s not found in thread", identifiers.cliCfg)
 	}
 	var result string
 	if valStruct, ok := val.(*starlarkstruct.Struct); ok {

@@ -1,16 +1,19 @@
 package starlark
 
 import (
+	"path/filepath"
 	"testing"
 
+	"github.com/leonardogdasilva/util"
 	"go.starlark.net/starlark"
 )
 
 func TestGitFunc(t *testing.T) {
 	tests := []struct {
-		name string
-		args func(t *testing.T) []starlark.Tuple
-		eval func(t *testing.T, kwargs []starlark.Tuple)
+		name     string
+		args     func(t *testing.T) []starlark.Tuple
+		eval     func(t *testing.T, kwargs []starlark.Tuple)
+		teardown func(t *testing.T)
 	}{
 		{
 			name: "simple clone",
@@ -34,12 +37,19 @@ func TestGitFunc(t *testing.T) {
 					t.Errorf("unexpected result: %s", result)
 				}
 			},
+			teardown: func(t *testing.T) {
+				path, _ := filepath.Abs("/tmp/foo")
+				if err := util.RemoveContents(path); err != nil {
+					t.Errorf("error removing folder /tmp/foo %s", err)
+				}
+			},
 		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			test.eval(t, test.args(t))
+			test.teardown(t)
 		})
 	}
 }

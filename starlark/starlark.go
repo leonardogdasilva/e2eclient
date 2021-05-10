@@ -64,8 +64,9 @@ func setupLocalDefaults(thread *starlark.Thread) error {
 // running script.
 func newPredeclareds() starlark.StringDict {
 	return starlark.StringDict{
-		identifiers.os:       setupOSStruct(),
-		identifiers.runLocal: starlark.NewBuiltin(identifiers.runLocal, runLocalFunc),
-		identifiers.git:      starlark.NewBuiltin(identifiers.git, gitFunc),
+		identifiers.os:        setupOSStruct(),
+		identifiers.runLocal:  starlark.NewBuiltin(identifiers.runLocal, runLocalFunc),
+		identifiers.git:       starlark.NewBuiltin(identifiers.git, gitFunc),
+		identifiers.container: starlark.NewBuiltin(identifiers.container, containerFunc),
 	}
 }
